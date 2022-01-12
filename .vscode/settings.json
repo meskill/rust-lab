@@ -6,6 +6,7 @@
     }
   },
   "conventionalCommits.scopes": [
-    "book"
+    "book",
+    "codewars"
   ]
 }
