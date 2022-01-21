@@ -12,7 +12,7 @@ Pick three.
 Duct";
 
         assert_eq!(
-            search_case_sensitive(query, contents),
+            search(query, contents, true),
             vec!["safe, fast, productive."]
         )
     }
@@ -26,31 +26,32 @@ safe, fast, productive.
 Pick three.
 Trust me.";
 
-        assert_eq!(
-            search_case_insensitive(query, contents),
-            vec!["Rust:", "Trust me."]
-        )
+        assert_eq!(search(query, contents, false), vec!["Rust:", "Trust me."])
     }
 }
 
-pub fn search_case_insensitive<'a>(query: &str, text: &'a str) -> Vec<&'a str> {
+pub fn search<'a>(query: &str, text: &'a str, case_sensitive: bool) -> Vec<&'a str> {
     let mut result: Vec<&str> = Vec::new();
-    let query = query.to_lowercase();
+    let lowercased_query: String;
+
+    let normalized_query = if case_sensitive {
+        query
+    } else {
+        lowercased_query = query.to_lowercase();
+        &lowercased_query
+    };
 
     for line in text.lines() {
-        if line.to_lowercase().contains(&query) {
-            result.push(line);
-        }
-    }
+        let lowercased_line: String;
 
-    result
-}
+        let normalized_line = if case_sensitive {
+            line
+        } else {
+            lowercased_line = line.to_lowercase();
+            &lowercased_line
+        };
 
-pub fn search_case_sensitive<'a>(query: &str, text: &'a str) -> Vec<&'a str> {
-    let mut result: Vec<&str> = Vec::new();
-
-    for line in text.lines() {
-        if line.contains(query) {
+        if normalized_line.contains(normalized_query) {
             result.push(line);
         }
     }
