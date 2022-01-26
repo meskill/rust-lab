@@ -19,7 +19,7 @@ mod tests {
             "poem.txt".to_string(),
         ];
 
-        let config = Config::new(&args).unwrap();
+        let config = Config::new(args).unwrap();
 
         assert_eq!(config.query, "test");
         assert_eq!(config.filename, "poem.txt");
@@ -27,11 +27,22 @@ mod tests {
     }
 
     #[test]
-    fn not_enough_arguments() {
-        let args: Vec<String> = vec![];
+    fn no_query() {
+        let args: Vec<String> = vec!["name".to_string()];
 
-        if let Err(s) = Config::new(&args) {
-            assert_eq!(s, "Not enough arguments");
+        if let Err(s) = Config::new(args) {
+            assert_eq!(s, "Please specify query");
+        } else {
+            panic!("Didn't throw");
+        }
+    }
+
+    #[test]
+    fn no_filename() {
+        let args: Vec<String> = vec!["name".to_string(), "test".to_string()];
+
+        if let Err(s) = Config::new(args) {
+            assert_eq!(s, "Please specify filename");
         } else {
             panic!("Didn't throw");
         }
@@ -39,13 +50,20 @@ mod tests {
 }
 
 impl Config {
-    pub fn new(args: &[String]) -> Result<Self, &str> {
-        if args.len() < 3 {
-            return Err("Not enough arguments");
-        }
+    pub fn new(args: impl IntoIterator<Item = String>) -> Result<Self, &'static str> {
+        let mut iter = args.into_iter();
 
-        let query = args[1].clone();
-        let filename = args[2].clone();
+        iter.next();
+
+        let query = match iter.next() {
+            Some(s) => s,
+            None => return Err("Please specify query"),
+        };
+        let filename = match iter.next() {
+            Some(s) => s,
+            None => return Err("Please specify filename"),
+        };
+
         let case_sensitive = env::var("MINIGREP_CASE_SENSITIVE").is_ok();
 
         Ok(Config {

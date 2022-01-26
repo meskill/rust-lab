@@ -5,7 +5,7 @@ use config::Config;
 use std::error::Error;
 use std::fs;
 
-pub fn run(args: &[String]) -> Result<(), Box<dyn Error>> {
+pub fn run(args: impl Iterator<Item = String>) -> Result<(), Box<dyn Error>> {
     let config = Config::new(args)?;
 
     let contents = fs::read_to_string(&config.filename)?;

@@ -11,10 +11,9 @@ safe, fast, productive.
 Pick three.
 Duct";
 
-        assert_eq!(
-            search(query, contents, true),
-            vec!["safe, fast, productive."]
-        )
+        let result: Vec<&str> = search(query, contents, true).collect();
+
+        assert_eq!(result, vec!["safe, fast, productive."])
     }
 
     #[test]
@@ -26,35 +25,24 @@ safe, fast, productive.
 Pick three.
 Trust me.";
 
-        assert_eq!(search(query, contents, false), vec!["Rust:", "Trust me."])
+        let result: Vec<&str> = search(query, contents, false).collect();
+
+        assert_eq!(result, vec!["Rust:", "Trust me."])
     }
 }
 
-pub fn search<'a>(query: &str, text: &'a str, case_sensitive: bool) -> Vec<&'a str> {
-    let mut result: Vec<&str> = Vec::new();
-    let lowercased_query: String;
-
-    let normalized_query = if case_sensitive {
-        query
+pub fn search<'a>(
+    query: &'a str,
+    text: &'a str,
+    case_sensitive: bool,
+) -> impl Iterator<Item = &'a str> {
+    let f: Box<dyn Fn(&str) -> bool> = if case_sensitive {
+        Box::new(move |line| line.contains(query))
     } else {
-        lowercased_query = query.to_lowercase();
-        &lowercased_query
+        let lowercased_query = query.to_lowercase();
+
+        Box::new(move |line| line.to_lowercase().contains(&lowercased_query))
     };
 
-    for line in text.lines() {
-        let lowercased_line: String;
-
-        let normalized_line = if case_sensitive {
-            line
-        } else {
-            lowercased_line = line.to_lowercase();
-            &lowercased_line
-        };
-
-        if normalized_line.contains(normalized_query) {
-            result.push(line);
-        }
-    }
-
-    result
+    text.lines().filter(move |&line| f(line))
 }
