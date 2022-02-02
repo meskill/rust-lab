@@ -103,6 +103,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "screen-locking-patterns"
+version = "0.1.0"
+
+[[package]]
 name = "wasi"
 version = "0.10.2+wasi-snapshot-preview1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
