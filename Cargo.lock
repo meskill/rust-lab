@@ -3,6 +3,13 @@
 version = 3
 
 [[package]]
+name = "anagram"
+version = "0.0.0"
+dependencies = [
+ "unicode-segmentation",
+]
+
+[[package]]
 name = "armstrong_numbers"
 version = "1.1.0"
 
@@ -19,6 +26,10 @@ name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
+
+[[package]]
+name = "clock"
+version = "2.4.0"
 
 [[package]]
 name = "collatz_conjecture"
@@ -190,6 +201,10 @@ version = "0.1.0"
 [[package]]
 name = "series"
 version = "0.1.0"
+
+[[package]]
+name = "space-age"
+version = "1.2.0"
 
 [[package]]
 name = "sum-of-multiples"
