@@ -53,10 +53,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "90e5c1c8368803113bf0c9584fc495a58b86dc8a29edbf8fe877d21d9507e797"
 
 [[package]]
-name = "experiments"
-version = "0.1.0"
-
-[[package]]
 name = "getrandom"
 version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -84,6 +80,10 @@ version = "0.1.0"
 dependencies = [
  "rand",
 ]
+
+[[package]]
+name = "hamming"
+version = "2.2.0"
 
 [[package]]
 name = "high-scores"
@@ -125,6 +125,18 @@ name = "libc"
 version = "0.2.112"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1b03d17f364a3a042d5e5d46b053bbbf82c92c9430c592dd4c064dc6ee997125"
+
+[[package]]
+name = "luhn"
+version = "1.6.1"
+
+[[package]]
+name = "luhn-from"
+version = "0.0.0"
+
+[[package]]
+name = "luhn-trait"
+version = "0.0.0"
 
 [[package]]
 name = "matching-brackets"
