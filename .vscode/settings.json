@@ -9,5 +9,6 @@
     "book",
     "codewars",
     "exercism"
-  ]
+  ],
+  "git.branchProtectionPrompt": "alwaysCommit"
 }
