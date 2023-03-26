@@ -162,6 +162,13 @@ name = "minigrep"
 version = "0.1.0"
 
 [[package]]
+name = "n-queens-problem"
+version = "0.1.0"
+dependencies = [
+ "rand",
+]
+
+[[package]]
 name = "nth_prime"
 version = "2.1.0"
 dependencies = [
